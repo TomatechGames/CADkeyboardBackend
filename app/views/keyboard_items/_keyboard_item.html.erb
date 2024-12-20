@@ -1,27 +1,27 @@
-<div id="<%= dom_id keyboard_item %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= keyboard_item.name %>
-  </p>
+<div id="<%= dom_id keyboard_item %>" class="mt-5 max-w-sm rounded overflow-hidden shadow-md bg-white">
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2"><%= keyboard_item.name %></div>
+    <p class="text-gray-700 text-base">
+      <%= keyboard_item.description %>
+    </p>
+  </div>
+  <div class="px-6 pt-4 pb-2">
+    <p class="inline-block px-3 py-1  mr-2 mb-2 bg-gray-200 rounded-full">
+      <strong class="font-medium mb-1">Manufacturer:</strong>
+      <%= keyboard_item.manufacturer %>
+    </p>
+    <p class="inline-block px-3 py-1  mr-2 mb-2 bg-gray-200 rounded-full">
+      <strong class="font-medium mb-1">Amount:</strong>
+      <%= keyboard_item.amount %>
+    </p>
+    <p class="inline-block px-3 py-1  mr-2 mb-2 bg-gray-200 rounded-full">
+      <strong class="font-medium mb-1">Price:</strong>
+      €<%= number_with_precision(keyboard_item.price, precision: 2) %>
+    </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= keyboard_item.description %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Manufacturer:</strong>
-    <%= keyboard_item.manufacturer %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Amount:</strong>
-    <%= keyboard_item.amount %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= keyboard_item.price %>
-  </p>
-
+    <%unless current_page?(keyboard_item_path(keyboard_item))%>
+    <%= link_to "View item", keyboard_item, class: "inline-block px-3 py-1 mr-2 mb-2 bg-blue-500 hover:bg-blue-700 rounded-full font-medium text-white" %>
+    <%end%>
+    
+  </div>
 </div>

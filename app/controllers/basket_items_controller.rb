@@ -1,9 +1,10 @@
 class BasketItemsController < ApplicationController
   before_action :set_basket_item, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /basket_items or /basket_items.json
   def index
-    @basket_items = BasketItem.all
+    @basket_items = current_user.basket_items
   end
 
   # GET /basket_items/1 or /basket_items/1.json

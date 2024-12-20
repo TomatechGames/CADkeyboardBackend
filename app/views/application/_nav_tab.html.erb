@@ -1,0 +1,6 @@
+<% method = :get if local_assigns[:method].nil? %>
+<% full = false if local_assigns[:full].nil? %>
+<% selected = (full ? current_page?(target) : request.env['PATH_INFO'].starts_with?(target))%>
+<li class="-mb-px <%= selected ? 'mr-1' : ''%>">
+    <a class="bg-white inline-block font-semibold <%= selected ? 'border-l border-t border-r rounded-t py-2 px-4 text-blue-700' : 'py-2 px-4 text-blue-500 hover:text-blue-800'%>" href="<%=target%>" method="<%method%>"><%=label%></a>
+</li>
