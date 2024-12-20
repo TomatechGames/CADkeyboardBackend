@@ -10,8 +10,6 @@ permissions: read-all
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
-    permissions: write-all
-
 
     steps:
       - name: Checkout code
@@ -28,7 +26,6 @@ jobs:
 
   scan_js:
     runs-on: ubuntu-latest
-    permissions: write-all
 
     steps:
       - name: Checkout code
