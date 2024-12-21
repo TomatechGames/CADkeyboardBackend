@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Keyboard Backend" %></title>
+    <title><%= content_for(:title) || "Krazy Keys" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -10,9 +10,9 @@
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/kbIcon.png" type="image/png">
+    <link rel="icon" href="/kbIcon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/kbIcon.png">
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -23,6 +23,12 @@
       <div class="fixed top-0 left-0 right-0">
         <div class="bg-white flex border-b pl-2 pr-2 pt-2 pb-px">
           <ul class="flex">  
+            <li class="ml-1 mr-1 flex-shrink h-9 flex">
+              <img src="/kbIcon.png" alt="KrazyKeys Logo" class="flex-shrink"/>
+            </li>
+            <li class="ml-1 mr-5">
+              <h1 class="font-bold text-3xl">Krazy Keys</h1>
+            </li>
             <%= render "nav_tab", target: "/" , label:"Home", full:true%>
             <%= render "nav_tab", target: keyboard_items_path , label:"Keyboards"%>
             <% if user_signed_in? %>
@@ -33,14 +39,14 @@
           
           <% if user_signed_in? %>
             <%= button_to destroy_user_session_path, method: :delete, class: "rounded-full px-5 bg-blue-200 inline-block font-medium text-base align-middle" do %>
-              <i class="bi bi-box-arrow-right"></i> Sign Out
+              <i class="bi bi-box-arrow-right"></i> Log Out
             <% end %>
           <% else %>
-            <%= button_to new_user_registration_path, class: "ml-1 rounded-full px-5 bg-blue-200 inline-block font-medium text-base align-middle" do %>
+            <%= button_to new_user_registration_path, method: :get, class: "ml-1 rounded-full px-5 bg-blue-200 inline-block font-medium text-base align-middle" do %>
               <i class="bi bi-box-arrow-right"></i> Sign Up
             <% end %>
-            <%= button_to new_user_session_path, class: "ml-1 rounded-full px-5 bg-blue-200 inline-block font-medium text-base align-middle" do %>
-              <i class="bi bi-box-arrow-right"></i> Sign In
+            <%= button_to new_user_session_path, method: :get, class: "ml-1 rounded-full px-5 bg-blue-200 inline-block font-medium text-base align-middle" do %>
+              <i class="bi bi-box-arrow-right"></i> Log In
             <% end %>
           <% end %>
           <%# <button class="rounded-full px-5 bg-blue-200 inline-block font-medium text-base">
@@ -48,7 +54,7 @@
           </button> %> 
         </div>
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative <%= alert.present? ? '':'hidden' %>" role="alert">
-          <strong class="font-bold">Alert</strong>
+          <strong class="font-bold">Alert:</strong>
           <span class="block sm:inline"><%=alert%></span>
           <%# <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
             <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>

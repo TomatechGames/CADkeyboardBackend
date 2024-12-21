@@ -1,6 +1,20 @@
-<h1>Home#index</h1>
-<br>
-<p>
-    Find me in app/views/home/index.html.erb
-</p>
-<br>
+<div class="w-full">
+    <div class="flex justify-between items-center">
+        <h1 class="font-bold text-4xl">Home</h1>
+    </div>
+    <div class="flex-none flex-row flex space-x-1 mt-2">
+        <%= link_to "Keyboards", keyboard_items_path, class: "rounded-lg py-3 px-5 bg-blue-200 font-medium" %><br />
+        <% if user_signed_in? %>
+            <%= button_to destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-blue-200 font-medium" do %>
+            <i class="bi bi-box-arrow-right"></i> Log Out
+            <% end %>
+        <% else %>
+            <%= button_to new_user_registration_path, method: :get, class: "rounded-lg py-3 px-5 bg-blue-200 font-medium" do %>
+            <i class="bi bi-box-arrow-right"></i> Sign Up
+            <% end %>
+            <%= button_to new_user_session_path, method: :get, class: "rounded-lg py-3 px-5 bg-blue-200 font-medium" do %>
+            <i class="bi bi-box-arrow-right"></i> Log In
+            <% end %>
+        <% end %>
+    </div>
+</div>

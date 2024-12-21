@@ -1,14 +1,13 @@
 <div class="w-full">
   <% content_for :title, "Keyboard items" %>
 
-  <% if user_signed_in? && current_user.admin? %>
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Keyboard items</h1>
-    <%= link_to "New keyboard item", new_keyboard_item_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% if user_signed_in? && current_user.admin? %>
+      <%= link_to "New keyboard item", new_keyboard_item_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
   </div>
-  <% end %>
-
-  <div id="keyboard_items" class="min-w-full">
+  <div id="keyboard_items" class="flex flex-wrap gap-2 items-center">
     <% @keyboard_items.each do |keyboard_item| %>
       <%= render keyboard_item %>
     <% end %>

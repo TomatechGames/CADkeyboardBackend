@@ -3,13 +3,20 @@
 
     <%# <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">Notice</p> %>
 
-    <%= link_to "Back", keyboard_items_path, class: "ml-2 rounded-lg py-3 px-5 bg-blue-200 inline-block font-medium" %>
+    <%= link_to "Back", keyboard_items_path, class: "rounded-lg mb-2 py-3 px-5 bg-blue-200 inline-block font-medium" %>
     <%= render @keyboard_item %>
 
-    <% if user_signed_in? && current_user.admin? %>
-      <%= link_to "Edit this keyboard item", edit_keyboard_item_path(@keyboard_item), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <div class="inline-block ml-2">
-        <%= button_to "Destroy this keyboard item", @keyboard_item, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <% if user_signed_in?%>
+      <div class="flex flex-col">
+        <% if current_user.keyboard_items.include?(@keyboard_item) %>
+          <%= button_to "Remove from basket", basket_items_path+"/"+current_user.basket_items.select {|basket_item| basket_item.keyboard_item==@keyboard_item}[0].id.to_s, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-blue-200 font-medium" %>
+        <% elsif (@keyboard_item.amount > 0) %>
+          <%= button_to "Add to basket", basket_items_path, method: :post, class: "mt-2 rounded-lg py-3 px-5 bg-blue-200 font-medium", params: { basket_item: { keyboard_item_id: @keyboard_item.id }} %>
+        <% end %>
+        <% if current_user.admin? %>
+          <%= button_to "Edit this keyboard item", edit_keyboard_item_path(@keyboard_item), method: :get, class: "mt-2 rounded-lg py-3 px-5 bg-blue-200 font-medium" %>
+          <%= button_to "Destroy this keyboard item", @keyboard_item, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-blue-200 font-medium" %>
+        <% end %>
       </div>
     <% end %>
   </div>

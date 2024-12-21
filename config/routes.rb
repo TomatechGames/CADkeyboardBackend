@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
-  resources :basket_items
   resources :keyboard_items
   root to: "home#index"
   devise_for :users, controllers: {
         session: "users/sessions"
   }
+
+  get "/basket_items" => "basket_items#index"
+  get "/basket_items/:id" => "basket_items#show"
+  delete "/basket_items/:id" => "basket_items#destroy"
+  post "/basket_items" => "basket_items#create"
+  post "/basket_items/purchase_all" => "basket_items#purchase_all"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

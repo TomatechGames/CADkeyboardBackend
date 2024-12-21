@@ -12,15 +12,33 @@ class KeyboardItemsController < ApplicationController
 
   # GET /keyboard_items/new
   def new
+    unless user_signed_in? && current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to keyboard_items_path, status: :see_other, alert: "Invalid permission." }
+      end
+    end
     @keyboard_item = KeyboardItem.new
   end
 
   # GET /keyboard_items/1/edit
   def edit
+    unless user_signed_in? && current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to @keyboard_item, status: :see_other, alert: "Invalid permission." }
+      end
+    end
   end
 
   # POST /keyboard_items or /keyboard_items.json
   def create
+    unless user_signed_in? && current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to keyboard_items_path, status: :see_other, alert: "Invalid permission." }
+        format.json { head :no_content, status: :see_other }
+      end
+      return
+    end
+
     @keyboard_item = KeyboardItem.new(keyboard_item_params)
 
     respond_to do |format|
@@ -36,6 +54,14 @@ class KeyboardItemsController < ApplicationController
 
   # PATCH/PUT /keyboard_items/1 or /keyboard_items/1.json
   def update
+    unless user_signed_in? && current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to @keyboard_item, status: :see_other, alert: "Invalid permission." }
+        format.json { head :no_content, status: :see_other }
+      end
+      return
+    end
+
     respond_to do |format|
       if @keyboard_item.update(keyboard_item_params)
         format.html { redirect_to @keyboard_item, notice: "Keyboard item was successfully updated." }
@@ -49,6 +75,13 @@ class KeyboardItemsController < ApplicationController
 
   # DELETE /keyboard_items/1 or /keyboard_items/1.json
   def destroy
+    unless user_signed_in? && current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to @keyboard_item, status: :see_other, alert: "Invalid permission." }
+        format.json { head :no_content, status: :see_other }
+      end
+      return
+    end
     @keyboard_item.destroy!
 
     respond_to do |format|
