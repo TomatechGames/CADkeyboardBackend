@@ -3,7 +3,8 @@ class KeyboardItemsController < ApplicationController
 
   # GET /keyboard_items or /keyboard_items.json
   def index
-    @keyboard_items = KeyboardItem.all
+    @q = KeyboardItem.ransack(params[:q])
+    @keyboard_items = @q.result(distinct: true)
   end
 
   # GET /keyboard_items/1 or /keyboard_items/1.json
