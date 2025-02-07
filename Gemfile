@@ -58,6 +58,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "ransack", "~> 4.2"
+gem "ransack", "~> 4.3"
 
 gem "devise", "~> 4.9"
